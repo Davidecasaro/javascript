@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>verifica es3</title>
+</head>
+<style>
+    img {
+      max-width: 200px;
+    }
+    table {
+      font-size:2em;
+      text-align: center;
+    }
+  </style>
+<body>
+
+    <table border="1">
+        <tbody id=tbody></tbody>
+    </table>
+    <script>
+    
+    let n=Number(prompt("inserisci il numero totale di gatti"));
+    let nfile=Number(prompt("inserisci il numero di file"));
+    
+
+    
+    
+
+    let nperfile=Math.ceil(n/nfile);
+
+        for(let i=1;i<=nfile;i++){
+            let riga;
+            riga=document.createElement("tr");
+            document.getElementById("tbody").appendChild(riga);
+            for(let j=1;j<=nperfile;j++){
+                let td=document.createElement("td");
+                let img=document.createElement("img");
+                img.src="https://davidecasaro.altervista.org/javascript/imm/pexels-kelvin-valerio-617278.jpg";
+                td.appendChild(img);
+                riga.appendChild(td);
+            }
+        }
+    </script>
+</body>
+</html>

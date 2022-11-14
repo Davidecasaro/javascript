@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>verifica es 2</title>
+</head>
+<body>
+    <table border="1">
+        <tbody id="tbody">
+            <tr>
+                <th>CONT</th>
+                <th>NUM</th>
+                <th>SOMMA PREC.</th>
+                <th>MAX SOMMA PREC.</th>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        let tbody=document.getElementById("tbody");
+
+        let tr=document.createElement("tr");
+        let td=document.createElement("td");
+        let cont=1;
+        let somma=0;
+        let n=1;
+        do{ 
+            n=Number(prompt("inserisci il numero"));
+            
+            td.innerText=cont;
+            tr.appendChild(td);
+            td=document.createElement("td");
+                      
+            td.innerText=n;
+            tr.appendChild(td);
+            td=document.createElement("td");
+            
+            td.innerText=somma;
+            tr.appendChild(td);
+            td=document.createElement("td");
+
+            if(n>somma){
+                td.innerText="si";
+                tr.appendChild(td);
+                td=document.createElement("td"); 
+            }
+            else{
+                td.innerText="no";
+                tr.appendChild(td);
+                td=document.createElement("td");
+            }
+
+            tbody.appendChild(tr);
+            tr=document.createElement("tr");
+ 
+            somma+=n;
+            cont++;
+
+        }while(n!=0);
+    </script>
+
+</body>
+</html>

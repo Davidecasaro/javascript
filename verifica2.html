@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>verifica</title>
+  </head>
+  <body>
+    <form>
+        <div class="form-group">
+          <label for="insoggetto">autista</label>
+          <input type="text" class="form-control" id="autista" placeholder="SOGGETTO protagonista">
+        </div>
+        <div class="form-group">
+          <label for="inobiettivo">destinazione</label>
+          <input type="text" class="form-control" id="destinazione" placeholder="OBIETTIVO da raggiungere">
+        </div>
+        <div class="form-group">
+          <label for="infame">carburante</label>
+          <input type="text" class="form-control" id="carburante" placeholder="MOTIVAZIONE che spinge verso l'obiettivo">
+        </div>
+        <div class="form-group">
+          <label for="inlabirinto">luogo</label>
+          <input type="text" class="form-control" id="luogo" placeholder="CONTESTO in cui si svolge l'azione">
+        </div>
+        <div class="form-group">
+          <label for="instrada">strada</label>
+          <input type="text" class="form-control" id="strada" placeholder="COMPORTAMENTO">
+        </div>
+        <div class="form-group">
+          <label for="instradaOk">strada OK</label>
+          <input type="text" class="form-control" id="stradaOk" placeholder="COMPORTAMENTO ADEGUATO">
+        </div>
+        <div class="form-group">
+          <label for="instradaKo">strada KO</label>
+          <input type="text" class="form-control" id="stradaKo" placeholder="COMPORTAMENTO INADEGUATO">
+        </div>
+        <div class="form-group">
+            <label for="inces">cespugli</label>
+            <input type="text" class="form-control" id="cespugli" placeholder="FEEDBACK">
+           </div>
+        <div class="form-group">
+         <label for="intestata">lupo</label>
+         <input type="text" class="form-control" id="lupo" placeholder="CONSEGUENZE NEGATIVE del comportamento inadeguato">
+        </div>
+        <div class="form-group">
+            <label for="intestata">cestino</label>
+            <input type="text" class="form-control" id="cestino" placeholder="ATTACCAMENTI da lasciare">
+           </div>
+        <div class="form-group">
+            <label for="indistanza">distanza</label>
+            <input type="int" class="form-control" id="distanza" placeholder="Ins n da 1 a 5">
+        </div>
+    </form>
+    <center>
+    <img src="" class="img-thumbnail" id="img">
+
+        <img src="https://davidecasaro.altervista.org/javascript/imm/Intro.gif" id="immagine">
+
+        <p><button type="button" id="buttonInizio" onclick="inizio()">Inizio</button></p>
+        <p><button type="button" id="buttonSX" onclick="bottoneSX()">SX</button>
+        <button type="button" id="buttonDX" onclick="bottoneDX()">DX</button></p>
+        <textarea id="narrazione", cols="190", rows="30">
+        </textarea>
+    </center>
+    <script>
+        var cont, soggetto, destinazione, carburante, luogo, comportamento, comportamentook, comportamentoko, cespugli, feedback, cestino, distanza;
+        var dist;
+        var max;
+        var pag;
+
+        document.getElementById("distanza").value = 3;
+
+        function popup(pagina){
+            window.open(pagina, '', 'width=560,height=390,left=500,top=100,resizable=yes,toolbar=no,scrollbar=no,status=no');
+        }
+
+        function bottoneSX(){
+            if(cont == 0){
+                document.getElementById("narrazione").value+="NO! \n";
+            	document.getElementById("narrazione").value+="mancando "+carburante+" per raggiungere "+destinazione+", "+soggetto+" nel contesto "+ luogo+" non raggiungerai l'obiettivo \n";
+                document.getElementById("narrazione").value+=soggetto+" vuoi raggiungere "+destinazione+"? ";
+                pag="https://davidecasaro.altervista.org/javascript/imm/manifestare1.jpg";
+                document.getElementById("immagine").src=pag;
+                }
+                else{
+                    dist ++;
+                    document.getElementById("narrazione").value+="ATTENZIONE "+soggetto+" la scelta "+comportamentoko+" ti allontana da "+destinazione+"\n";
+                    document.getElementById("narrazione").value+=feedback+" ti segnala il pericolo! \n";
+                    document.getElementById("narrazione").value+="distanza = ("+dist+")";
+                    pag="https://davidecasaro.altervista.org/javascript/imm/no_sostegno.gif";
+                    document.getElementById("immagine").src=pag;
+                    if(dist >= max){
+                        document.getElementById("narrazione").value+=":-( ti sei allontanato troppo!!! ti scontri con "+testata;
+                        pag="https://davidecasaro.altervista.org/javascript/imm/topolinono.jpg";
+                        popup(pag);
+                        document.getElementById("buttonSX").innerText="trattieni il cestino";
+                        document.getElementById("buttonDX").innerText="lascia andare il cestino";
+            		}
+          		}
+         	 }
+        
+
+        function bottoneDX(){
+            if(cont == 0){
+                document.getElementById("narrazione").value+=" SI! \n";  
+                cont++;   
+                document.getElementById("buttonSX").innerText="SCORRETTO";
+            	document.getElementById("buttonDX").innerText="CORRETTO";
+              	document.getElementById("narrazione").value+=soggetto+" quale "+comportamento+" scegli? \n";
+                pag="https://davidecasaro.altervista.org/javascript/imm/explorer.jpg";
+                document.getElementById("immagine").src=pag;
+            }       
+           else{
+                dist --;
+                document.getElementById("narrazione").value+=soggetto+"la scelta "+comportamentook+" ti avvicina a "+destinazione+"\n";
+                document.getElementById("narrazione").value+="distanza = (" + dist +")\n"
+                pag="https://davidecasaro.altervista.org/javascript/imm/sostegno1.gif";
+                document.getElementById("immagine").src=pag;
+                if(dist >-1)
+                    document.getElementById("narrazione").value+="Coraggio ci sei quasi, fai un altro passo! \n";
+                else{
+                  document.getElementById("narrazione").value+=":-) Complimenti, hai raggiunto l'obiettivo!!!";
+                  pag="https://davidecasaro.altervista.org/javascript/imm/topolinosi.jpg";
+                  popup(pag);
+            	}
+          	}
+        }
+
+        function inizio(){
+            if(document.getElementById("autista").value!="")
+                soggetto=document.getElementById("autista").value;
+            else
+                soggetto="AUTISTA"
+            if(document.getElementById("destinazione").value!="")
+                destinazione=document.getElementById("destinazione").value;
+            else
+                destinazione="OBIETTIVO"
+            if(document.getElementById("carburante").value!="")
+                carburante=document.getElementById("carburante").value;
+            else
+                carburante="MOTIVAZIONE"
+            if(document.getElementById("luogo").value!="")
+                luogo=document.getElementById("luogo").value;
+            else
+                luogo="CONTESTO"
+            if(document.getElementById("strada").value!="")
+                comportamento=document.getElementById("strada").value;
+            else
+                comportamento="COMPORTAMENTO"
+            if(document.getElementById("stradaOk").value!="")
+                comportamentook=document.getElementById("stradaOk").value;
+            else
+                comportamentook="COMPORTAMENTO ADEGUATO";
+            if(document.getElementById("stradaKo").value!="")
+                comportamentoko=document.getElementById("stradaKo");
+            else
+                comportamentoko="COMPORTAMENTO INADEGUATO"
+            if(document.getElementById("lupo").value!="")
+                lupo=document.getElementById("lupo").value;
+            else
+                lupo="CONSEGUENZE NEGATIVE"
+            if(document.getElementById("cespugli").value!="")
+                cespugli=document.getElementById("cespugli").value;
+            else
+                cespugli="FEEDBACK"
+            if(document.getElementById("cestino").value!="")
+                cestino=document.getElementById("cestino").value;
+            else
+                cestino="ATTACCAMENTI"
+
+            distanza=document.getElementById("distanza").value; 
+
+            if(distanza <1 || distanza>5)
+                distanza=document.getElementById("distanza").value = 3;
+            dist = distanza;
+
+            document.getElementById("narrazione").value = "";
+
+            pag="https://davidecasaro.altervista.org/javascript/imm/Intro.gif";
+            document.getElementById("immagine").src=pag;
+            
+            cont = 0;
+            
+            max = dist*2+1;
+
+            document.getElementById("narrazione").value+="Distanza iniziale dall'obiettivo = "+dist+"\n";
+            document.getElementById("narrazione").scrollTop=document.getElementById("narrazione").scrollHeight;
+            document.getElementById("narrazione").value+=soggetto+" vuoi raggiungere "+destinazione+"? ";
+            document.getElementById("buttonSX").innerText="NO";
+            document.getElementById("buttonDX").innerText="SI";
+            
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

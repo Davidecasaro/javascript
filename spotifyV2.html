@@ -35,7 +35,7 @@
 
         async function renderTable(){
             try{
-                var tbody;
+                var tbody="";
                 const recentSongs = await fetchAlbumData();
                 for(item of recentSongs["items"]){
                     const track=item["track"]; 

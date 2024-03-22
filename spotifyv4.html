@@ -8,12 +8,12 @@
 <body>
     <table border="1">
         <tbody id="tbody">
-
+            
         </tbody>
     </table>
     
     <script>
-        var access_token = "BQA_4kISaxMniyfV_3XF6J8HyLPfWM-VMufuDrKLdri-a8AtHVSeiki9oy64lrS1mV-RFBkbRIbQMvxrg4ePEDsp5BR5SGpo1rchzMdz3yABGh3pkei2PfdEZgAL8JxNT5tRxCTBY8SY6LFiMNF1YRmWMVCPMlbiX_AlyRsiioxGJXJBlK9mOG797KPj0FN8Szrqacso_RgRxlXrX2aU";
+        var access_token = "BQDT8WwIw25fBfclTKaGUZ5A3XfxFVkRkAE1oko6sFV24AZ71x_y1brgdj5TOJdBAMFe0OS0H0fYnZiixHZam2gU9KKnrY560MQ6y7t9H7nrcGVTyBVWLtIAEfpAWVPtYvHQId8oowUADdr8DzygF778NGhgAX7TD3U_bPOHWn_PdFM_81hBUVIrHaL0CLGupT1K4CLlEhsj47szcIzA";
         async function fetchAlbumData(){
             try{
                 const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played`,{
@@ -57,7 +57,7 @@
 
         async function funzione(album_id){
             try{
-                var tbody;
+                var tbody="";
                 const albumNuovo = await fetchAlbumData2(album_id);
                 for(item of albumNuovo["items"]){
                     const track=item["track"]; 

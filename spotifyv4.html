@@ -54,6 +54,17 @@
             }
         }
 
+        async function playSong(songId, songTilte){
+            const playerDiv=document.getElementById('spotifyPlayer');
+            const playerHtml=`
+                <div>
+                    <p>Stai ascoltando: ${songTitle}</p>
+                    <frame src="https://open.spotify.com/embled/track/${songId}" with="300" height="80" frameborder="0" allowtrasparency="true" allow="encrypted-media">
+                    </iframe>
+                </div>    
+                `;
+                playerDiv.innerHTML=playerHtml;
+        }
 
         async function funzione(album_id){
             try{
@@ -61,12 +72,11 @@
                 const albumNuovo = await fetchAlbumData2(album_id);
                 for(item of albumNuovo["items"]){
                     const track=item["track"]; 
-                    alert(tbody);
                     tbody += "<tr>";
-                    tbody += `<td>${track["artists"][0]["name"]}</td>`;
+                    tbody += `<td><a href="${track["artists"][0]["external_urls"]["spotify"]}">${track["artists"][0]["name"]}</td>`;
                     tbody += `<td>${track["name"]}</td>`;
-                    tbody += `<td><img src="${track["album"]["images"][0]["url"]}" alt="Copertina" style="width: 100px;"></td>`;
-                    tbody += `<td><a href="${track["external_urls"]["spotify"]}">Ascolta</a></td>`;
+                    tbody += `<td><a href="${track["album"]["external_urls"]["spotify"]}"><img src="${track["album"]["images"][0]["url"]}" alt="Copertina" style="width: 100px;" onclick="funzione('${track["album"]["id"]}');"></td>`;
+                    tbody += `<td><onclick="playSong('${track["id"]}','${track["name"]}');">Ascolta</a></td>`;
                     tbody += "</tr>";
                 }
                 alert(tbody);

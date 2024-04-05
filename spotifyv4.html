@@ -7,8 +7,6 @@
 </head>
 <body>
 
-    <input type="button" value="indietro" onClick="renderTable();">
-
     <div id="spotifyPlayer">
 
     </div>
@@ -67,9 +65,11 @@
         }
 
         async function playSong(songId, songTitle){
+            
             const playerDiv=document.getElementById('spotifyPlayer');
             const playerHtml=`
                 <div>
+                    <input type="button" value="indietro" onClick="renderTable();">
                     <p>Stai ascoltando: ${songTitle}</p>
                     <iframe src="https://open.spotify.com/embed/track/${songId}" with="300" height="80" frameborder="0" allowtrasparency="true" allow="encrypted-media">
                     </iframe>

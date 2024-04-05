@@ -8,12 +8,15 @@
 <body>
     
     <table border="1">
-        <tbody id="tbody">
-
+        <th>Autore</th>
+        <th>Titolo</th>
+        <th>Album</th>
+        <th>Ascolta</th>
+        <tbody id="tbody">    
         </tbody>
     </table>
     <script>
-        var access_token = "BQDAIz1qsq0ILdgucNDkepZkaDyVMWK6UEKp0eA2E9k9xUE8AAIuGQ3KQ4WLX9L0v6YFeF2shAhaC1Xk5QSoHAcpRQ_6IDB04d_irx4EpIPAyz6KUouBP-VylRTtlhLV4lUsdDPhqJy2r6oqT9aYtpwgM4JA_iJ9yOPWQBIFNZuWVxnc3kGfEA2-9Ancau8qVI2JX0lfgoKnTLDou89N";
+        var access_token = "BQANbk1yKT9i-pLgEYD65n-eDcz9hbGQp46sD0TLWZYOT-8kMB7Fn2Vcl7g1Umen95PPGt7rX5Z2zt_1ccoZn-lh0J5tdCIiU_sEtjyFuGXTL1T1B9zh1nzc1LQoZ5hJgde61uOPMEq1v0HkYSVd8Jvp4ElgWlwuswg7tuFc8T4uRTpsjxq6DwRpv_gk28rqToQG-uOP7XMAoft7yuNk";
         async function fetchAlbumData(){
             try{
                 const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played`,{
@@ -34,7 +37,6 @@
         }
         
         async function fetchAlbumData2(album_id){
-            
             try{
                 const response = await fetch(album_id,{
                     headers: {
@@ -46,40 +48,26 @@
                     throw new Error('Errore nella richiesta: '+response.status);
                 }
                 const userData = await response.json();
+                console.log(userData);
                 return userData;
             }catch (error){
-                alert(error);
                 console.error("Errore durante la richiesta:", error);
                 return null;
             }
         }
 
-        /*async function playSong(songId, songTilte){
-            const playerDiv=document.getElementById('spotifyPlayer');
-            const playerHtml=`
-                <div>
-                    <p>Stai ascoltando: ${songTitle}</p>
-                    <frame src="https://open.spotify.com/embled/track/${songId}" with="300" height="80" frameborder="0" allowtrasparency="true" allow="encrypted-media">
-                    </iframe>
-                </div>    
-                `;
-                playerDiv.innerHTML=playerHtml;
-        }*/
-
-        async function funzione(album_id){
+        async function funzione(album_id, image){
             try{
                 var tbody="";
-                const albumNuovo = await fetchAlbumData2(album_id);
-                for(item of albumNuovo["items"]){
-                    const track=item["track"]; 
+                const albumNuovo = await fetchAlbumData2(`https://api.spotify.com/v1/albums/${album_id}`);
+                for(item of albumNuovo["tracks"]["items"]){
                     tbody += "<tr>";
-                    tbody += `<td><a href="${track["artists"][0]["external_urls"]["spotify"]}">${track["artists"][0]["name"]}</td>`;
-                    tbody += `<td>${track["name"]}</td>`;
-                    tbody += `<td><a href="${track["album"]["external_urls"]["spotify"]}"><img src="${track["album"]["images"][0]["url"]}" alt="Copertina" style="width: 100px;" onclick="funzione('${track["album"]["id"]}');"></td>`;
-                    tbody += `<td><onclick="playSong('${track["id"]}','${track["name"]}');">Ascolta</a></td>`;
-                    tbody += "</tr>";
+                    tbody += `<td><a href="${item["artists"][0]["external_urls"]["spotify"]}">${item["artists"][0]["name"]}</td>`;
+                    tbody += `<td>${item["name"]}</td>`;
+                    tbody += `<td><img src=${image} alt="Copertina" style="width: 100px;"></td>`;
+                    tbody += `<td><a href="${item["external_urls"]["spotify"]}">Ascolta</a></td>`;
+                    tbody += "</tr>"; 
                 }
-                alert(tbody);
             document.getElementById("tbody").innerHTML = tbody;
             }catch (error){
                 console.error("Errore durante il rendering della tabella: ", error);
@@ -88,16 +76,16 @@
 
         async function renderTable(){
             try{
-                var tbody;
+                var tbody="";
                 const recentSongs = await fetchAlbumData();
                 for(item of recentSongs["items"]){
                     const track=item["track"]; 
                     tbody += "<tr>";
-                    tbody += `<td>${track["artists"][0]["name"]}</td>`;
+                    tbody += `<td><a href="${track["artists"][0]["external_urls"]["spotify"]}">${track["artists"][0]["name"]}</td>`;
                     tbody += `<td>${track["name"]}</td>`;
-                    tbody += `<td><img src="${track["album"]["images"][0]["url"]}" alt="Copertina" style="width: 100px;" onclick="funzione('${track["album"]["id"]}');"></td>`;
+                    tbody += `<td><img src="${track["album"]["images"][0]["url"]}" alt="Copertina" style="width: 100px;" onclick="funzione('${track["album"]["id"]}', '${track["album"]["images"][0]["url"]}');"></td>`;
                     tbody += `<td><a href="${track["external_urls"]["spotify"]}">Ascolta</a></td>`;
-                    tbody += "</tr>";
+                    tbody += "</tr>";   
                 }
             document.getElementById("tbody").innerHTML = tbody;
             }catch (error){

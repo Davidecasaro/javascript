@@ -8,12 +8,8 @@
 <body>     
 
     <table class="table table-dark" border="1">
-    <tbody id="tbody">
-        <tr>
-        <th scope="col">Codice</th>
-        <th scope="col">Prodotto</th>
-        <th scope="col">Dettagli</th>
-        </tr>
+        <tbody id="tbody">
+        </tbody>
     </table>
     <script>
 
@@ -34,12 +30,12 @@
 
     async function renderTable(){
             try{
-                var tbody="";
+                var tbody="<tr><th>Codice</th><th>Prodotto</th><th>Dettagli</th></tr>";
                 const prodotti = await fetchAlbumData();
                 for(prod in prodotti["products"]){
                     tbody+=`<td>${prodotti["products"][prod]["id"]}</td>`;
                     tbody+=`<td>${prodotti["products"][prod]["name"]}</td>`;
-                    tbody+=`<td>${prodotti["products"][prod][""]}</td>`;
+                    tbody+=`<td><button onclick="dettagliProdotti());">Apri</button></td>`;
                 }
             document.getElementById("tbody").innerHTML = tbody;
             }catch (error){
@@ -50,12 +46,14 @@
 
     async function dettagliProdotti(){
             try{
-                var tbody=`<th scope="col">Codice</th><th scope="col">Prodotto</th><th scope="col">Descrizione</th><th scope="col">Immagine</th><th scope="col">Costo</th><th scope="col">Spedizione</th>`;
+                var tbody=`<th>Codice</th><th>Prodotto</th><th>Descrizione</th><th>Immagine</th><th>Costo</th><th>Spedizione</th>`;
                 const prodotti = await fetchAlbumData();
                 for(prod in prodotti["products"]){
                     tbody+=`<td>${prodotti["products"][prod]["id"]}</td>`;
                     tbody+=`<td>${prodotti["products"][prod]["name"]}</td>`;
-                    
+                    tbody+=`<td>${prodotti["products"][prod][""]}</td>`;
+                    tbody+=`<td><img src="${prodotti["products"][prod][""]}" alt="immagine" style="width: 100px;"</td>`;
+                    tbody+=`<td>${prodotti["products"][prod][""]}</td>`; 
                 }
             document.getElementById("tbody").innerHTML = tbody;
             }catch (error){
@@ -63,8 +61,6 @@
                 return null;
             }
     }
-
-    
 
     renderTable()
 
